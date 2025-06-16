@@ -4,7 +4,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import { useColorMode } from "../context/ColorModeContext";
-import { TodoProvider } from "../context/TodoProvider";
+import { TodoProvider } from "../context/TodoContext";
 
 export default function TodoDashboard() {
   const { toggleColorMode, colorMode } = useColorMode();

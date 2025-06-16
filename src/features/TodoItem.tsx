@@ -7,7 +7,7 @@ import {
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import type { Todo } from "../types";
-import { useTodos } from "../context/useTodos";
+import { useTodos } from "../context/TodoContext";
 
 type Props = {
   todo: Todo;
