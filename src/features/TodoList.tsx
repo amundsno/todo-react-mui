@@ -4,7 +4,7 @@ import { Fragment } from "react/jsx-runtime";
 import { useTodos } from "../context/TodoContext";
 
 export default function TodoList() {
-  const { todos } = useTodos()
+  const { todos } = useTodos();
   if (todos.length > 0)
     return (
       <List

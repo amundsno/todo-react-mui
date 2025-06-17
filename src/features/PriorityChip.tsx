@@ -1,11 +1,5 @@
 import { Chip, type ChipProps } from "@mui/material";
-import type { Priority } from "../types";
-
-const colorByPriority: Record<Priority, ChipProps["color"]> = {
-  normal: "success",
-  medium: "secondary",
-  urgent: "warning",
-};
+import { colorByPriority, type Priority } from "../types";
 
 type Props = ChipProps & {
   priority: Priority;
@@ -16,7 +10,7 @@ export default function PriorityChip({ priority, ...rest }: Props) {
     <Chip
       {...rest}
       label={priority}
-      color={colorByPriority[priority]}
+      color={colorByPriority[priority] as ChipProps["color"]}
       sx={{
         mr: 1,
         width: 75,
