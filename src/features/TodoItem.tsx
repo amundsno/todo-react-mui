@@ -3,18 +3,20 @@ import {
   FormControlLabel,
   Checkbox,
   IconButton,
+  Box,
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import type { Todo } from "../types";
 import { useTodos } from "../context/TodoContext";
+import PriorityChip from "./PriorityChip";
 
 type Props = {
   todo: Todo;
 };
 
 export default function TodoItem({ todo }: Props) {
-  const { toggleTodo, removeTodo } = useTodos();
+  const { toggleDone, removeTodo, togglePriority } = useTodos();
   return (
     <ListItem
       sx={{
@@ -26,14 +28,20 @@ export default function TodoItem({ todo }: Props) {
     >
       <FormControlLabel
         control={
-          <Checkbox checked={todo.done} onChange={() => toggleTodo(todo.id)} />
+          <Checkbox checked={todo.done} onChange={() => toggleDone(todo.id)} />
         }
         label={todo.title}
         name={`todo-item-${todo.id}`}
       />
-      <IconButton onClick={() => removeTodo(todo.id)}>
-        <DeleteForeverIcon />
-      </IconButton>
+      <Box>
+        <PriorityChip
+          priority={todo.priority}
+          onClick={() => togglePriority(todo.id)}
+        />
+        <IconButton onClick={() => removeTodo(todo.id)}>
+          <DeleteForeverIcon />
+        </IconButton>
+      </Box>
     </ListItem>
   );
 }

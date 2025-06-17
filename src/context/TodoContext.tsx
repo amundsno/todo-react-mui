@@ -4,13 +4,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Guid } from "guid-typescript";
 
-import type { Todo } from "../types";
+import { nextPriority, type Todo } from "../types";
 
 export type TodoContextType = {
   todos: Todo[];
   addTodo: (todo: string) => void;
-  toggleTodo: (id: string) => void;
+  toggleDone: (id: string) => void;
   removeTodo: (id: string) => void;
+  togglePriority: (id: string) => void;
 };
 
 export const TodoContext = createContext<TodoContextType | undefined>(
@@ -46,6 +47,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
         id: Guid.create().toString(),
         title: title,
         done: false,
+        priority: "normal",
       },
     ]);
   };
@@ -54,7 +56,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
 
-  const toggleTodo = (id: string) => {
+  const toggleDone = (id: string) => {
     setTodos((prev) =>
       prev.map((todo) =>
         todo.id === id ? { ...todo, done: !todo.done } : todo
@@ -66,8 +68,20 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
+  const togglePriority = (id: string) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id
+          ? { ...todo, priority: nextPriority(todo.priority) }
+          : todo
+      )
+    );
+  };
+
   return (
-    <TodoContext value={{ todos, addTodo, toggleTodo, removeTodo }}>
+    <TodoContext
+      value={{ todos, addTodo, toggleDone, removeTodo, togglePriority }}
+    >
       {children}
     </TodoContext>
   );
