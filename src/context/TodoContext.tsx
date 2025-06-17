@@ -9,8 +9,8 @@ import type { Todo } from "../types";
 export type TodoContextType = {
   todos: Todo[];
   addTodo: (todo: string) => void;
-  toggleTodo: (id: Guid) => void;
-  removeTodo: (id: Guid) => void;
+  toggleTodo: (id: string) => void;
+  removeTodo: (id: string) => void;
 };
 
 export const TodoContext = createContext<TodoContextType | undefined>(
@@ -43,7 +43,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
     setTodos((prev) => [
       ...prev,
       {
-        id: Guid.create(),
+        id: Guid.create().toString(),
         title: title,
         done: false,
       },
@@ -54,7 +54,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
   }, [todos]);
 
-  const toggleTodo = (id: Guid) => {
+  const toggleTodo = (id: string) => {
     setTodos((prev) =>
       prev.map((todo) =>
         todo.id === id ? { ...todo, done: !todo.done } : todo
@@ -62,7 +62,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
-  const removeTodo = (id: Guid) => {
+  const removeTodo = (id: string) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
