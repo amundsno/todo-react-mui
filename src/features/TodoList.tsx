@@ -11,6 +11,8 @@ export default function TodoList() {
         component={Paper}
         sx={{
           width: "100%",
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
         }}
       >
         {todos.map((todo, index) => (
