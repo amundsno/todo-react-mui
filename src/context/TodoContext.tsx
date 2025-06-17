@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 // Reason: For simplicity, this file exports both provider component and context logic.
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { Guid } from "guid-typescript";
 
 import type { Todo } from "../types";
@@ -26,14 +26,22 @@ export const useTodos = (): TodoContextType => {
   return context;
 };
 
+const STORAGE_KEY = "todos";
+
+function _get_todos_from_storage(): Todo[] {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return [];
+  return JSON.parse(raw);
+}
+
 export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(_get_todos_from_storage);
 
   const addTodo = (title: string) => {
-    setTodos([
-      ...todos,
+    setTodos((prev) => [
+      ...prev,
       {
         id: Guid.create(),
         title: title,
@@ -41,6 +49,10 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
       },
     ]);
   };
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
 
   const toggleTodo = (id: Guid) => {
     setTodos((prev) =>

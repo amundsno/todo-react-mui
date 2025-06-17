@@ -6,14 +6,17 @@ import { createTheme } from "@mui/material";
 import {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from "react";
 
+type ColorMode = "light" | "dark";
+
 type ColorModeContextType = {
   toggleColorMode: () => void;
-  colorMode: "light" | "dark";
+  colorMode: ColorMode;
 };
 
 const ColorModeContext = createContext<ColorModeContextType | undefined>(
@@ -29,11 +32,20 @@ export function useColorMode() {
   return context;
 }
 
-export function ColorModeProvider({ children }: { children: ReactNode }) {
-  const [colorMode, setColorMode] = useState<"dark" | "light">("dark");
+const STORAGE_KEY = "colorMode";
 
-  const toggleColorMode = () =>
+export function ColorModeProvider({ children }: { children: ReactNode }) {
+  const [colorMode, setColorMode] = useState<ColorMode>(() =>
+    localStorage.getItem(STORAGE_KEY) === "light" ? "light" : "dark"
+  );
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, colorMode);
+  }, [colorMode]);
+
+  const toggleColorMode = () => {
     setColorMode((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   const theme = useMemo(
     () => createTheme({ palette: { mode: colorMode } }),
