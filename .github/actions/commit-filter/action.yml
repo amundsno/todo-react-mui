@@ -1,0 +1,31 @@
+name: Commit Filter
+description: Skip job if the latest commit message matches ignored prefixes
+
+inputs:
+  ignore:
+    description: Pipe-separated list of commit prefixes to ignore
+    required: false
+    default: docs|chore|build|ci|test|style
+
+outputs:
+  skip:
+    description: Whether to skip the job
+    value: ${{ steps.filter.outputs.skip }}
+
+runs:
+  using: composite
+  steps:
+    - name: Filter commits
+      id: filter
+      shell: bash
+      run: |
+        set -e
+        echo "Commit prefixes to ignore: '${{ inputs.ignore }}'"
+        echo "Latest commit message: '$(git log -1 --pretty=%B)'"
+        if git log -1 --pretty=%B | grep -Eq "^(${{ inputs.ignore }})\s?(\(.*?\))?:"; then
+          echo "Matched ignored prefixes. Skipping."
+          echo "skip=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "Did not match ignored prefixes. Continuing."
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+        fi

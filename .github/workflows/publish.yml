@@ -3,9 +3,12 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: 
+
 permissions:
   packages: write
   contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -13,8 +16,14 @@ jobs:
       - name: Checkout GitHub Repository
         uses: actions/checkout@v4
 
+      - name: Filter commits
+        id: commit-filter
+        if: github.event_name != 'workflow_dispatch'  
+        uses: ./.github/actions/commit-filter
+
       - name: Docker meta
         id: meta
+        if: steps.commit-filter.outputs.skip != 'true'
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/amundsno/todo-react-mui
@@ -23,6 +32,7 @@ jobs:
             type=raw,value=latest
 
       - name: Login to GitHub Container Registry
+        if: steps.commit-filter.outputs.skip != 'true'
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -30,6 +40,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build container
+        if: steps.commit-filter.outputs.skip != 'true'
         uses: docker/build-push-action@v5
         with:
           push: true
