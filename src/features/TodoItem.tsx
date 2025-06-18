@@ -3,7 +3,7 @@ import {
   FormControlLabel,
   Checkbox,
   IconButton,
-  Box,
+  Stack,
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
@@ -33,7 +33,7 @@ export default function TodoItem({ todo }: Props) {
         label={todo.title}
         name={`todo-item-${todo.id}`}
       />
-      <Box>
+      <Stack direction='row'>
         <PriorityChip
           priority={todo.priority}
           onClick={() => togglePriority(todo.id)}
@@ -41,7 +41,7 @@ export default function TodoItem({ todo }: Props) {
         <IconButton onClick={() => removeTodo(todo.id)}>
           <DeleteForeverIcon />
         </IconButton>
-      </Box>
+      </Stack>
     </ListItem>
   );
 }
