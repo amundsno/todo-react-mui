@@ -49,11 +49,18 @@ export default function useTodoState() {
     );
   };
 
+  const setTitle = (id: string, title: string) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, title } : todo))
+    );
+  };
+
   return {
     todos,
     addTodo,
     toggleDone,
     removeTodo,
     togglePriority,
+    setTitle,
   };
 }
