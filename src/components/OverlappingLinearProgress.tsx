@@ -27,6 +27,33 @@ const getCumulativeBars = (bars: Bar[]): Bar[] => {
     .reverse();
 };
 
+function CumulativeBars({ bars }: { bars: Bar[] }) {
+  const cumulativeBars = getCumulativeBars(bars);
+  return (
+    <>
+      <LinearProgress variant="determinate" value={0} color="inherit" />
+      {cumulativeBars.map((bar, i) => (
+        <LinearProgress
+          key={`${bar.color}-${i}`}
+          color={bar.color}
+          value={bar.ratio * 100}
+          variant="determinate"
+          sx={{
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            position: "absolute",
+            [`&.${linearProgressClasses.root}`]: {
+              backgroundColor: "transparent",
+            },
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
 export default function OverlappingLinearProgress({
   bars,
   tooltip,
@@ -34,11 +61,8 @@ export default function OverlappingLinearProgress({
 }: Props) {
   const [hovered, setHovered] = useState(false);
 
-  const cumulativeBars = getCumulativeBars(bars);
-
-  const content = (
+  const progressBar = (
     <Box
-      {...rest}
       onMouseEnter={() => {
         if (!tooltip) setHovered(true);
       }}
@@ -52,6 +76,7 @@ export default function OverlappingLinearProgress({
         justifyContent: "end",
         ...(rest.sx || {}),
       }}
+      {...rest}
     >
       <Box
         sx={{
@@ -61,25 +86,7 @@ export default function OverlappingLinearProgress({
           transition: "transform 0.3s ease",
         }}
       >
-        <LinearProgress variant="determinate" value={0} color="inherit" />
-        {cumulativeBars.map((bar, i) => (
-          <LinearProgress
-            key={`${bar.color}-${i}`}
-            color={bar.color}
-            value={bar.ratio * 100}
-            variant="determinate"
-            sx={{
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              position: "absolute",
-              [`&.${linearProgressClasses.root}`]: {
-                backgroundColor: "transparent",
-              },
-            }}
-          />
-        ))}
+        <CumulativeBars bars={bars} />
       </Box>
     </Box>
   );
@@ -91,9 +98,9 @@ export default function OverlappingLinearProgress({
       onOpen={() => setHovered(true)}
       onClose={() => setHovered(false)}
     >
-      {content}
+      {progressBar}
     </Tooltip>
   ) : (
-    content
+    progressBar
   );
 }
