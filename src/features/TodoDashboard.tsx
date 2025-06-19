@@ -6,6 +6,7 @@ import TodoList from "./TodoList";
 import { useColorMode } from "../context/ColorModeContext";
 import { TodoProvider } from "../context/TodoContext";
 import TodoProgressBar from "./TodoProgressBar";
+import TodoToolBar from "./TodoToolBar";
 
 export default function TodoDashboard() {
   const { toggleColorMode, colorMode } = useColorMode();
@@ -41,6 +42,7 @@ export default function TodoDashboard() {
               alignItems: "center",
             }}
           >
+            <TodoToolBar />
             <TodoProgressBar />
             <TodoList />
             <TodoForm />

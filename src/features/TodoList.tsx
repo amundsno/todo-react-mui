@@ -4,8 +4,13 @@ import { Fragment } from "react/jsx-runtime";
 import { useTodos } from "../context/TodoContext";
 
 export default function TodoList() {
-  const { todos } = useTodos();
-  if (todos.length > 0)
+  const { todos, hideCompleted } = useTodos();
+
+  let filteredTodos = [...todos];
+
+  if (hideCompleted) filteredTodos = filteredTodos.filter((todo) => !todo.done);
+
+  if (filteredTodos.length > 0)
     return (
       <List
         component={Paper}
@@ -15,7 +20,7 @@ export default function TodoList() {
           borderTopRightRadius: 0,
         }}
       >
-        {todos.map((todo, index) => (
+        {filteredTodos.map((todo, index) => (
           <Fragment key={todo.id.toString()}>
             {index > 0 && <Divider component="li" />}
             <TodoItem todo={todo} />

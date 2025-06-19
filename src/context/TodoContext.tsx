@@ -12,6 +12,8 @@ export type TodoContextType = {
   toggleDone: (id: string) => void;
   removeTodo: (id: string) => void;
   togglePriority: (id: string) => void;
+  hideCompleted: boolean;
+  toggleHideCompleted: () => void;
 };
 
 export const TodoContext = createContext<TodoContextType | undefined>(
@@ -32,6 +34,14 @@ const STORAGE_KEY = "todos";
 function _get_todos_from_storage(): Todo[] {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return [];
+  return JSON.parse(raw);
+}
+
+const HIDE_STORAGE_KEY = "hideCompleted";
+
+function _get_hide_from_storage(): boolean {
+  const raw = localStorage.getItem(HIDE_STORAGE_KEY);
+  if (!raw) return false;
   return JSON.parse(raw);
 }
 
@@ -78,9 +88,27 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
+  const [hideCompleted, setHideCompleted] = useState(_get_hide_from_storage);
+
+  const toggleHideCompleted = () => {
+    setHideCompleted((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem(HIDE_STORAGE_KEY, JSON.stringify(hideCompleted));
+  }, [hideCompleted]);
+
   return (
     <TodoContext
-      value={{ todos, addTodo, toggleDone, removeTodo, togglePriority }}
+      value={{
+        todos,
+        addTodo,
+        toggleDone,
+        removeTodo,
+        togglePriority,
+        hideCompleted,
+        toggleHideCompleted,
+      }}
     >
       {children}
     </TodoContext>
