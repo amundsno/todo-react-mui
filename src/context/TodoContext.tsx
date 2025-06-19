@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { Guid } from "guid-typescript";
 
 import { nextPriority, type Todo } from "../types";
+import { getFromLocalStorage, setToLocalStorage } from "../utils/localStorage";
 
 export type TodoContextType = {
   todos: Todo[];
@@ -30,25 +31,14 @@ export const useTodos = (): TodoContextType => {
 };
 
 const STORAGE_KEY = "todos";
-
-function _get_todos_from_storage(): Todo[] {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) return [];
-  return JSON.parse(raw);
-}
-
 const HIDE_STORAGE_KEY = "hideCompleted";
-
-function _get_hide_from_storage(): boolean {
-  const raw = localStorage.getItem(HIDE_STORAGE_KEY);
-  if (!raw) return false;
-  return JSON.parse(raw);
-}
 
 export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [todos, setTodos] = useState<Todo[]>(_get_todos_from_storage);
+  const [todos, setTodos] = useState<Todo[]>(
+    getFromLocalStorage(STORAGE_KEY, [])
+  );
 
   const addTodo = (title: string) => {
     setTodos((prev) => [
@@ -63,7 +53,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+    setToLocalStorage(STORAGE_KEY, todos);
   }, [todos]);
 
   const toggleDone = (id: string) => {
@@ -88,14 +78,16 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({
     );
   };
 
-  const [hideCompleted, setHideCompleted] = useState(_get_hide_from_storage);
+  const [hideCompleted, setHideCompleted] = useState(
+    getFromLocalStorage(HIDE_STORAGE_KEY, false)
+  );
 
   const toggleHideCompleted = () => {
     setHideCompleted((prev) => !prev);
   };
 
   useEffect(() => {
-    localStorage.setItem(HIDE_STORAGE_KEY, JSON.stringify(hideCompleted));
+    setToLocalStorage(HIDE_STORAGE_KEY, hideCompleted);
   }, [hideCompleted]);
 
   return (
