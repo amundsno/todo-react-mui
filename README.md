@@ -1,7 +1,7 @@
 # Todo App - React + Material UI
 Simple demo project exploring [React](https://react.dev/) and [Material UI](https://mui.com/material-ui/).
 
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 ## Quick Start
 ### Option 1: Docker
