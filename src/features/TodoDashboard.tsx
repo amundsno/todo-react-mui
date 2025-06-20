@@ -34,7 +34,11 @@ export default function TodoDashboard() {
         <TodoProvider>
           <Box
             sx={{
-              maxWidth: 600,
+              maxWidth: {
+                xs: '90%',
+                sm: 500,
+                md: 800,
+              },
               width: "100%",
               mt: 6,
               display: "flex",
