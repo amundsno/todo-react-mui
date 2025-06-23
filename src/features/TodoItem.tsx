@@ -1,16 +1,11 @@
-import {
-  ListItem,
-  Checkbox,
-  IconButton,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { ListItem, Checkbox, IconButton, Stack } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 import type { Todo } from "../types";
 import { useTodos } from "../context/TodoContext";
 import PriorityChip from "./PriorityChip";
-import { useRef, useState } from "react";
+import MinimalTextField from "../components/MinimalTextField";
+import { useState } from "react";
 
 type Props = {
   todo: Todo;
@@ -30,7 +25,7 @@ export default function TodoItem({ todo }: Props) {
       <Checkbox
         checked={todo.done}
         onChange={() => toggleDone(todo.id)}
-        sx={{ pl: 0 }}
+        sx={{ ml: -1 }}
       />
       <TodoItemLabel todo={todo} />
       <Stack direction="row">
@@ -48,43 +43,21 @@ export default function TodoItem({ todo }: Props) {
 
 function TodoItemLabel({ todo }: { todo: Todo }) {
   const { setTitle } = useTodos();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
   const [value, setValue] = useState(todo.title);
-  const [focused, setFocused] = useState(false);
-  const [hovered, setHovered] = useState(false);
 
   return (
-    <TextField
-      multiline
-      inputRef={inputRef}
-      variant="standard"
+    <MinimalTextField
       value={value}
-      onChange={(event) => setValue(event.target.value)}
-      onFocus={() => setFocused(true)}
-      onBlur={() => {
-        setFocused(false);
-        if (value != todo.title) setTitle(todo.id, value);
+      onChange={(e) => setValue(e.target.value)}
+      onSave={(newValue) => {
+        if (newValue !== todo.title) setTitle(todo.id, newValue);
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" && !event.shiftKey) {
-          if (value != todo.title) setTitle(todo.id, value);
-          inputRef.current?.blur();
-        } else if (event.key === "Escape") {
-          setValue(todo.title);
-          inputRef.current?.blur();
-        }
-      }}
-      slotProps={{
-        input: {
-          disableUnderline: !focused && !hovered,
-        },
-      }}
+      onCancel={() => setValue(todo.title)}
+      multiline={true}
       sx={{
-        width: "100%",
         pr: 1,
+        pl: 1,
+        width: "100%",
       }}
     />
   );
