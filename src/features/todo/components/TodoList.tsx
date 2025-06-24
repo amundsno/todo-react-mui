@@ -1,6 +1,6 @@
 import { Divider, List, Paper } from "@mui/material";
 import { Fragment } from "react/jsx-runtime";
-import { useTodos } from "../context/TodoContext";
+import { useTodos } from "../hooks/useTodos";
 import TodoItem from "./TodoItem";
 
 export default function TodoList() {

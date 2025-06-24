@@ -1,7 +1,7 @@
 import { Badge, Chip } from "@mui/material";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { useTodos } from "../context/TodoContext";
+import { useTodos } from "../hooks/useTodos";
 
 export default function HideCompletedTodosChip() {
   const { todos, hideCompleted, toggleHideCompleted } = useTodos();

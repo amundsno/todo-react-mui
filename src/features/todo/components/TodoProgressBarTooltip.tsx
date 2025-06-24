@@ -1,5 +1,5 @@
 import { Box, Typography, Divider } from "@mui/material";
-import { useTodos } from "../context/TodoContext";
+import { useTodos } from "../hooks/useTodos";
 import { useColorMode } from "@/features/colorMode";
 import { type Priority, colorByPriority } from "../types/todoTypes";
 

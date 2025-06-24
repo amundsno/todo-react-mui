@@ -1,14 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 // Reason: For simplicity, this file exports both provider component and context logic.
 
+import { usePersistedState } from "@/hooks/usePersistedState";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import {
   createContext,
   useContext,
-  useEffect,
   useMemo,
-  useState,
   type ReactNode,
 } from "react";
 
@@ -35,13 +34,7 @@ export function useColorMode() {
 const STORAGE_KEY = "colorMode";
 
 export function ColorModeProvider({ children }: { children: ReactNode }) {
-  const [colorMode, setColorMode] = useState<ColorMode>(() =>
-    localStorage.getItem(STORAGE_KEY) === "light" ? "light" : "dark"
-  );
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, colorMode);
-  }, [colorMode]);
+  const [colorMode, setColorMode] = usePersistedState<ColorMode>("dark", STORAGE_KEY);
 
   const toggleColorMode = () => {
     setColorMode((prev) => (prev === "dark" ? "light" : "dark"));

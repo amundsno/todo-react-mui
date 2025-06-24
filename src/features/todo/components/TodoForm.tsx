@@ -1,7 +1,7 @@
 import { Box, IconButton, Paper, TextField } from "@mui/material";
 import { useState, type FormEvent } from "react";
 import SendIcon from "@mui/icons-material/Send";
-import { useTodos } from "../context/TodoContext";
+import { useTodos } from "../hooks/useTodos";
 
 export default function TodoForm() {
   const { addTodo } = useTodos();

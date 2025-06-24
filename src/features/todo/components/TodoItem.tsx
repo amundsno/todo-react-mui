@@ -1,7 +1,7 @@
 import { ListItem, Checkbox, IconButton, Stack } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import { useTodos } from "../context/TodoContext";
+import { useTodos } from "../hooks/useTodos";
 import PriorityChip from "./PriorityChip";
 import { useState } from "react";
 import type { Todo } from "../types/todoTypes";

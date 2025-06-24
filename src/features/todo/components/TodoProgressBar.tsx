@@ -1,6 +1,6 @@
 import { type LinearProgressProps } from "@mui/material";
 import OverlappingLinearProgress, { type Bar } from "@/components/OverlappingLinearProgress";
-import { useTodos } from "../context/TodoContext";
+import { useTodos } from "../hooks/useTodos";
 import TodoProgressBarTooltip from "./TodoProgressBarTooltip";
 import { type Todo, type Priority, colorByPriority } from "../types/todoTypes";
 
