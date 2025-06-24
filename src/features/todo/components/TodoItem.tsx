@@ -5,7 +5,7 @@ import { useTodos } from "../context/TodoContext";
 import PriorityChip from "./PriorityChip";
 import { useState } from "react";
 import type { Todo } from "../types/todoTypes";
-import MinimalTextField from "../../../components/MinimalTextField";
+import MinimalTextField from "@/components/MinimalTextField";
 
 type Props = {
   todo: Todo;

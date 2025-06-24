@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import AppLayout from "./AppLayout";
-import { TodoListView } from "./features/todo";
+import { TodoListView } from "@/features/todo";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

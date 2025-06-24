@@ -1,6 +1,6 @@
 import { Box, Typography, Divider } from "@mui/material";
 import { useTodos } from "../context/TodoContext";
-import { useColorMode } from "../../colorMode";
+import { useColorMode } from "@/features/colorMode";
 import { type Priority, colorByPriority } from "../types/todoTypes";
 
 export default function TodoProgressBarTooltip() {
