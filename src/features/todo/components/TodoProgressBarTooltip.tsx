@@ -1,9 +1,9 @@
 import { Box, Typography, Divider } from "@mui/material";
-import { type Priority, colorByPriority } from "../types";
 import { useTodos } from "../context/TodoContext";
-import { useColorMode } from "./colorMode";
+import { useColorMode } from "../../colorMode";
+import { type Priority, colorByPriority } from "../types/todoTypes";
 
-export default function TodoTooltip() {
+export default function TodoProgressBarTooltip() {
   return (
     <Box width={120}>
       <TooltipLabel priority="total" />

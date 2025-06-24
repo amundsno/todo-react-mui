@@ -1,10 +1,9 @@
 import { type LinearProgressProps } from "@mui/material";
+import OverlappingLinearProgress, { type Bar } from "../../../components/OverlappingLinearProgress";
 import { useTodos } from "../context/TodoContext";
-import { colorByPriority, type Priority, type Todo } from "../types";
-import OverlappingLinearProgress, {
-  type Bar,
-} from "../components/OverlappingLinearProgress";
-import TodoTooltip from "./TodoTooltip";
+import TodoProgressBarTooltip from "./TodoProgressBarTooltip";
+import { type Todo, type Priority, colorByPriority } from "../types/todoTypes";
+
 
 const getBar = (todos: Todo[], priority: Priority): Bar => {
   const completed = todos.filter((x) => x.done && x.priority === priority);
@@ -26,7 +25,7 @@ export default function TodoProgressBar() {
         getBar(todos, "medium"),
         getBar(todos, "normal"),
       ]}
-      tooltip={<TodoTooltip />}
+      tooltip={<TodoProgressBarTooltip />}
     />
   );
 }

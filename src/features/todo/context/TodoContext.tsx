@@ -2,9 +2,8 @@
 // Reason: For simplicity, this file exports both provider component and context logic.
 
 import { createContext, useContext } from "react";
-
-import useTodoState from "./_useTodoState";
-import useTodoFilter from "./_useTodoFilter";
+import useTodoFilter from "../hooks/useTodoFilter";
+import useTodoState from "../hooks/useTodoState";
 
 export type TodoContextType = ReturnType<typeof useTodoState> &
   ReturnType<typeof useTodoFilter>;

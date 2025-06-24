@@ -1,11 +1,11 @@
 import { ListItem, Checkbox, IconButton, Stack } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import type { Todo } from "../types";
 import { useTodos } from "../context/TodoContext";
 import PriorityChip from "./PriorityChip";
-import MinimalTextField from "../components/MinimalTextField";
 import { useState } from "react";
+import type { Todo } from "../types/todoTypes";
+import MinimalTextField from "../../../components/MinimalTextField";
 
 type Props = {
   todo: Todo;

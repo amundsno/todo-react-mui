@@ -1,8 +1,8 @@
 import { Guid } from "guid-typescript";
 import { useState, useEffect } from "react";
 
-import { type Todo, nextPriority } from "../types";
-import { getFromLocalStorage, setToLocalStorage } from "../utils/localStorage";
+import { getFromLocalStorage, setToLocalStorage } from "../../../utils/localStorage";
+import { type Todo, nextPriority } from "../types/todoTypes";
 
 const STORAGE_KEY = "todos";
 

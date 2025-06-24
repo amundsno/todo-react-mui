@@ -7,9 +7,8 @@ export type Todo = {
   priority: Priority;
 };
 
-export type Priority = typeof priorities[number];
-
 const priorities = ["normal", "medium", "urgent"] as const;
+export type Priority = typeof priorities[number];
 
 export function nextPriority(priority: Priority): Priority{
     const index = priorities.indexOf(priority)

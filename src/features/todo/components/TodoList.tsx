@@ -1,7 +1,7 @@
 import { Divider, List, Paper } from "@mui/material";
-import TodoItem from "./TodoItem";
 import { Fragment } from "react/jsx-runtime";
 import { useTodos } from "../context/TodoContext";
+import TodoItem from "./TodoItem";
 
 export default function TodoList() {
   const { todos, hideCompleted } = useTodos();

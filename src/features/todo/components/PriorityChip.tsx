@@ -1,5 +1,5 @@
 import { Chip, type ChipProps } from "@mui/material";
-import { colorByPriority, type Priority } from "../types";
+import { type Priority, colorByPriority } from "../types/todoTypes";
 
 type Props = ChipProps & {
   priority: Priority;

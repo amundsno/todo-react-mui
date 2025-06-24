@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { getFromLocalStorage, setToLocalStorage } from "../utils/localStorage";
+import { getFromLocalStorage, setToLocalStorage } from "../../../utils/localStorage";
 
 const STORAGE_KEY = "hideCompleted";
 

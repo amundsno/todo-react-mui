@@ -2,11 +2,11 @@ import { Box, Typography } from "@mui/material";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import { TodoProvider } from "../context/TodoContext";
-import TodoProgressBar from "./TodoProgressBar";
-import TodoToolBar from "./TodoToolBar";
 import { useParams } from "react-router";
+import TodoToolBar from "./TodoToolBar";
+import TodoProgressBar from "./TodoProgressBar";
 
-export default function TodoListView() {
+export function TodoListView() {
   const {listId} = useParams()
   return (
     <Box
