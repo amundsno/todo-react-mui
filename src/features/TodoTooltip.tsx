@@ -1,7 +1,7 @@
 import { Box, Typography, Divider } from "@mui/material";
 import { type Priority, colorByPriority } from "../types";
 import { useTodos } from "../context/TodoContext";
-import { useColorMode } from "../context/ColorModeContext";
+import { useColorMode } from "./colorMode";
 
 export default function TodoTooltip() {
   return (

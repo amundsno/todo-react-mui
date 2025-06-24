@@ -1,7 +1,6 @@
 import { Outlet } from "react-router";
-import { ColorModeProvider } from "./context/ColorModeContext";
 import { CssBaseline, Stack } from "@mui/material";
-import ToggleColorModeButton from "./features/ToggleColorModeButton";
+import { ColorModeProvider, ToggleColorModeButton } from "./features/colorMode";
 
 export default function AppLayout() {
   return (
