@@ -3,7 +3,7 @@ import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 import { TodoProvider } from "../context/TodoContext";
 import { useParams } from "react-router";
-import TodoToolBar from "./TodoToolBar";
+import TodoListHeader from "./TodoListHeader";
 import TodoProgressBar from "./TodoProgressBar";
 
 export function TodoListView() {
@@ -31,7 +31,7 @@ export function TodoListView() {
             alignItems: "center",
           }}
         >
-          <TodoToolBar />
+          <TodoListHeader />
           <TodoProgressBar />
           <TodoList />
           <TodoForm />
