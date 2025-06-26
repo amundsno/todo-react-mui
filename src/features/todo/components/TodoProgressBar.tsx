@@ -21,9 +21,9 @@ export default function TodoProgressBar() {
   return (
     <OverlappingLinearProgress
       bars={[
-        getBar(todos, "urgent"),
-        getBar(todos, "medium"),
-        getBar(todos, "normal"),
+        getBar(todos, "high"),
+        getBar(todos, "mid"),
+        getBar(todos, "low"),
       ]}
       tooltip={<TodoProgressBarTooltip />}
     />

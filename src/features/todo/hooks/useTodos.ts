@@ -11,7 +11,7 @@ export function useTodos() {
       id: Guid.create().toString(),
       title: title,
       done: false,
-      priority: "normal",
+      priority: "low",
     });
   };
 

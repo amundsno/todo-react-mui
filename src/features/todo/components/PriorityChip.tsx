@@ -13,7 +13,7 @@ export default function PriorityChip({ priority, ...rest }: Props) {
       color={colorByPriority[priority] as ChipProps["color"]}
       sx={{
         mr: 1,
-        width: 75,
+        width: 50,
         ...(rest.sx || {}),
       }}
     />

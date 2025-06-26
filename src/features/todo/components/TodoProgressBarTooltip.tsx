@@ -8,9 +8,9 @@ export default function TodoProgressBarTooltip() {
     <Box width={120}>
       <TooltipLabel priority="total" />
       <Divider />
-      <TooltipLabel priority="urgent" />
-      <TooltipLabel priority="medium" />
-      <TooltipLabel priority="normal" />
+      <TooltipLabel priority="high" />
+      <TooltipLabel priority="mid" />
+      <TooltipLabel priority="low" />
     </Box>
   );
 }

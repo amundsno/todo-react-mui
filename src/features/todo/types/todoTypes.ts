@@ -7,7 +7,7 @@ export type Todo = {
   priority: Priority;
 };
 
-const priorities = ["normal", "medium", "urgent"] as const;
+const priorities = ["low", "mid", "high"] as const;
 export type Priority = typeof priorities[number];
 
 export function nextPriority(priority: Priority): Priority{
@@ -16,7 +16,7 @@ export function nextPriority(priority: Priority): Priority{
 }
 
 export const colorByPriority: Record<Priority, keyof Theme['palette']> = {
-  normal: "success",
-  medium: "secondary",
-  urgent: "warning",
+  low: "success",
+  mid: "secondary",
+  high: "warning",
 };
