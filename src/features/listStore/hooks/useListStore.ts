@@ -1,5 +1,6 @@
 import { Guid } from "guid-typescript";
 import { useListStoreBase } from "../context/ListStoreContext";
+import type { Todo } from "@/features/todo/types/todoTypes";
 
 const LIST_STORAGE_KEY_PREFIX = "todos-";
 
@@ -32,11 +33,25 @@ export function useListStore() {
     updateField(id, "listName", listName);
   };
 
+  const getList = (id: string): Todo[] | undefined => {
+    const storageKey = getListStorageKey(id);
+    if (!storageKey) return undefined;
+
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) return undefined;
+
+    const parsed = JSON.parse(raw) as Todo[];
+    if (!Array.isArray(parsed)) return undefined;
+
+    return parsed;
+  };
+
   return {
     lists,
     newList,
     removeList,
     setListName,
     getListStorageKey,
+    getList
   };
 }
