@@ -6,6 +6,12 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 type DrawerContextType = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean | ((prev: boolean) => boolean)) => void;
+  snackbar: {
+    open: boolean;
+    message: string;
+    show: (message: string) => void;
+    close: () => void;
+  };
 };
 
 const DrawerContext = createContext<DrawerContextType | undefined>(undefined);
@@ -22,7 +28,31 @@ export function useDrawer() {
 export function DrawerContextProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Snackbar
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const show = (message: string) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  };
+
+  const close = () => setSnackbarOpen(false);
+
   return (
-    <DrawerContext value={{ isOpen, setIsOpen }}>{children}</DrawerContext>
+    <DrawerContext
+      value={{
+        isOpen,
+        setIsOpen,
+        snackbar: {
+          open: snackbarOpen,
+          message: snackbarMessage,
+          show: show,
+          close: close,
+        },
+      }}
+    >
+      {children}
+    </DrawerContext>
   );
 }

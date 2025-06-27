@@ -5,6 +5,7 @@ import NewListButton from "./NewListButton";
 import ListStoreList from "./ListStoreList";
 import { DrawerContextProvider, useDrawer } from "../context/DrawerContext";
 import type { DrawerProps } from "node_modules/@mui/material";
+import DeleteSnackbar from "./DeleteSnackbar";
 
 type Props = {
   variant: DrawerProps["variant"];
@@ -14,6 +15,7 @@ export function DrawerMenu({ variant }: Props) {
   return (
     <DrawerContextProvider>
       <DrawerMenuInternal variant={variant} />
+      <DeleteSnackbar />
     </DrawerContextProvider>
   );
 }

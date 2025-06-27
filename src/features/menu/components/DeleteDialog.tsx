@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
+import { useDrawer } from "../context/DrawerContext";
 
 type Props = {
   item: ListStoreItem;
@@ -25,12 +26,15 @@ export default function DeleteDialog({
   const { listId } = useParams();
   const { removeList, getList } = useListStore();
 
+  const { snackbar } = useDrawer();
+
   const todoListLength = getList(item.id)?.length;
 
   const handleDelete = () => {
     removeList(item.id);
     if (item.id === listId) navigate(`/lists`);
     setOpenDialog(false);
+    snackbar.show(`Deleted ${item.listName}`);
   };
 
   // Reason: Skip dialog if the list is empty
