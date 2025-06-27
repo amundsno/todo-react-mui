@@ -10,6 +10,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    name: Azure Publish - ${{github.ref_name}}
     steps:
       - name: Checkout GitHub repository
         uses: actions/checkout@v4

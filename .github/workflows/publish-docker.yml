@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   publish:
+    name: Docker Publish - ${{github.ref_name}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout GitHub repository
