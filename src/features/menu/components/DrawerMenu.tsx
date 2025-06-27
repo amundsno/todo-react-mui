@@ -25,9 +25,12 @@ function DrawerMenuInternal({ variant }: Props) {
   const { isOpen, setIsOpen } = useDrawer();
   return (
     <>
-      <IconButton onClick={() => setIsOpen(true)}>
-        <MenuIcon />
-      </IconButton>
+      {variant === "temporary" && (
+        <IconButton onClick={() => setIsOpen(true)}>
+          <MenuIcon />
+        </IconButton>
+      )}
+
       <Drawer
         variant={variant}
         anchor="left"
